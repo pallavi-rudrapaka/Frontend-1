@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Details - BookStore</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <h1 class="logo">📚 BookStore</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Books</a>
+      <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="book-details-page">
+    <div id="book-detail-container" class="book-detail-box"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 BookStore | Designed with ❤️ by Pallavi</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // --- Get book ID from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const bookId = parseInt(params.get("id"));
+
+    const book = books.find(b => b.id === bookId);
+    const container = document.getElementById("book-detail-container");
+
+    if (book) {
+      container.innerHTML = `
+        <div class="book-detail">
+          <img src="${book.image}" alt="${book.title}">
+          <div class="book-detail-info">
+            <h2>${book.title}</h2>
+            <p class="author">by ${book.author}</p>
+            <p class="price">₹${book.price}</p>
+            <p class="rating">⭐ ${book.rating} / 5</p>
+            <p class="desc">${book.description}</p>
+            <button onclick="addToCart(${book.id})">Add to Cart</button>
+          </div>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<h2 style="text-align:center;">Book not found!</h2>`;
+    }
+  </script>
+</body>
+</html>
